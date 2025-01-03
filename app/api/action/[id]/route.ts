@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import { Connection, Transaction, SystemProgram, PublicKey } from "@solana/web3.js";
 
-export const GET = async (req: Request, props: { params: { id: string } }) => {
+export const GET = async (req: Request) => {
   try {
-    const params = props.params;
-    const tokenId = params.id;
+    console.log('--req',req.url);
+    
+    const params = new URL(req.url).searchParams;
+    const tokenId = params.get("id");
 
     // 初始化 Solana RPC 连接
     const connection = new Connection("https://api.devnet.solana.com");
